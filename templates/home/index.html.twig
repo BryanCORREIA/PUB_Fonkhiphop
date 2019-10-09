@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/home.css') }}">
+{% endblock %}
+
+{% block body %}
+    <main>
+        <section class="section-header">
+            <h3>Travailler la danse <br> hip-hop avec Fonkhiphop</h3>
+            <p>Fonkhiphop vous permet de découvrir ou de perfectionner votre danse hip-hop.</p>
+            {{ form_start(formDiscover) }}
+            <div class="form-discover">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3">{{ form_widget(formDiscover.email) }}</div>
+                        <div class="col-md-3"><input type="submit" value="Découvrir Fonkhiphop"></div>
+                    </div>
+                </div>
+                <p class="small-text">Vous êtes déjà membre de Fonkhiphop ? <a href="#">Connectez-vous</a></p>
+            </div>
+            {{ form_end(formDiscover) }}
+        </section>
+        <section>
+            <div class="section-title">
+                <div class="logo-title">
+                    <img src="{{ asset('res/Fonkhiphop-min.png') }}" alt="Logo du titre">
+                </div>
+                <h2>Qui sommes-nous ?</h2>
+            </div>
+            <div class="split-view">
+                <div class="split-left">
+                    <h3>Quelques mots sur nous</h3>
+                    <p>
+                        Notre association Fonkhiphop, fondé en 2017, ouvre ses portes afin d'inculquer les valeurs du HipHop tant dans l'esprit que dans la pratique. Notre mission premiere est de transmettre des valeurs qui passent par le partage de la discipline. Cette danse festive rapproche et rassemble les gens. Mais cela passe aussi et surtout par le travaille et le respect.
+                    </p>
+                    <p>
+                        Nos cours vous offrirons la possibilité de découvrir l'art du HipHop, du New Style et du popping. Nous vous proposons également des stages de Popping, Break, Dance Hall, affro house.
+                    </p>
+                    <p>
+                        Dynamique, motivée et intéressé ou juste curieux venez découvrir notre association et la danse qu'elle propose au cours de stage d'initiation ou en vous inscrivant tout simplement.
+                    </p>
+                </div>
+                <div class="split-right">
+                    <p>Vous souhaitez suivre notre association ?</p>
+                    {# TODO : Faire le formulaire d'abonnement à la newletter #}
+                    <form action="#">
+                        <input type="text" placeholder="Adresse Email">
+                        <input type="submit" value="S'abonner">
+                    </form>
+                </div>
+            </div>
+        </section>
+        <div class="or-spacer">
+            <div class="mask"></div>
+            <span><button><i class="fal fa-arrow-alt-down"></i></button></span>
+        </div>
+        <section>
+            <div class="our-cours">
+                <div class="cours-legend">
+                    <img src="{{ asset('res/danceur.jpg') }}" alt="">
+                </div>
+                <div class="box-cours-text">
+                    <div class="cours-text">
+                        <h3>Nos cours</h3>
+                        <p>Nos cours sont disponibles pour les enfants ainsi que les adultes.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="our-stage">
+                <div class="box-stage-text">
+                    <div class="stage-text">
+                        <h3>Nos stages</h3>
+                        <p>Nos stages sont disponibles pour les enfants ainsi que les adultes.</p>
+                    </div>
+                </div>
+                <div class="stage-legend">
+                    <img src="{{ asset('res/figure.jpg') }}" alt="">
+                </div>
+            </div>
+        </section>
+        <div class="or-spacer">
+            <div class="mask"></div>
+            <span><button><i class="fal fa-arrow-alt-down"></i></button></span>
+        </div>
+        <section>
+            <div class="section-title">
+                <div class="logo-title">
+                    <img src="{{ asset('res/Fonkhiphop-min.png') }}" alt="Logo du titre">
+                </div>
+                <h2>Nous contacter</h2>
+            </div>
+            <div class="information-contact">
+                <div class="information-unique">
+                    <i class="fal fa-phone fa-90"></i>
+                    <p class="information-label">Téléphone</p>
+                    <p class="information-content">06 27 95 39 46</p>
+                </div>
+                <div class="information-unique">
+                    <i class="fal fa-map-marker-alt"></i>
+                    <p class="information-label">Adresse postale</p>
+                    <p class="information-content">
+                        Foyer Rural, Rue division Leclerc
+                        <br>
+                        53200, Chateau Gontier
+                    </p>
+                </div>
+                <div class="information-unique">
+                    <i class="fal fa-envelope"></i>
+                    <p class="information-label">Adresse mail</p>
+                    <p class="information-content">
+                        <a href="mailto:contact@fonkhiphop.fr">contact@fonkhiphop.fr</a>
+                    </p>
+                </div>
+            </div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2678.3420623656293!2d-0.716894648988713!3d47.832966280204495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4808f5cf002f83e3%3A0x32f699d521c36d87!2sFoyer+Rural!5e0!3m2!1sfr!2sfr!4v1535233003920" width="100%" height="500" frameborder="0" style="border:0" allowfullscreen="" class="map"></iframe>
+            <div class="form-contact">
+                <h2>
+                    Une question ? Contactez nous directement ici
+                </h2>
+                {{ form_start(formContact) }}
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_widget(formContact.firstname) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_widget(formContact.lastname) }}
+                        </div>
+                        <div class="col-md-12">
+                            {{ form_widget(formContact.mail) }}
+                        </div>
+                        <div class="col-md-12">
+                            {{ form_widget(formContact.message) }}
+                        </div>
+                        <div class="col-md-9">
+
+                        </div>
+                        <div class="col-md-3">
+                            <input type="submit" value="Envoyer">
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(formContact) }}
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/homeJs.js') }}"></script>
+{% endblock %}

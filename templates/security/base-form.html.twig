@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/security.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="box-banner">
+        <div class="banner-login on-load" id="banner">
+            <div class="box-login">
+                {% block form %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/homeJs.js') }}"></script>
+    <script src="{{ asset('build/securityJs.js') }}"></script>
+{% endblock %}

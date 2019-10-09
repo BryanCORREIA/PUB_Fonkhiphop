@@ -1,0 +1,26 @@
+{% extends 'security/base-form.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block form %}
+        <h2>Connexion</h2>
+        <p class="small-text">Veuillez saisir vos informations de connexion</p>
+        <form action="{{ path('security_login') }}" method="post">
+            {% if error %}
+                <div class="login-error mb-2">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+            <div class="box-input mb-2">
+                <input type="email" placeholder="Adresse email" name="_username" value="{{ last_username }}"/>
+            </div>
+            <div class="box-input">
+                <input type="password" placeholder="Mot de passe" name="_password"/>
+            </div>
+            <div class="box-submit">
+                <a href="{{ path('security_request_password') }}" class="forget-password">Mot de passe oublié ?</a>
+                <input type="submit" value="Se connecter">
+            </div>
+            <a href="{{ path('security_signup') }}" class="sign-up"><span class="keep-color">Pas de compte ?</span> Inscrivez-vous</a>
+        </form>
+{% endblock %}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="{{ asset('lib/fontawesome/css/all.css') }}">
+        <link rel="stylesheet" href="{{ asset('lib/bootstrap-4/dist/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+
+        <div style="background-color: #173b73; padding: 20px">
+            <div style="padding: 50px; border: 2px dashed #FFFFFF">
+                <h1 style="color: #FFFFFF; margin-bottom: 20px; text-align: center">{% block title_mail %}{% endblock %}</h1>
+                <div style="background-color: #FFFFFF; width: 150px; height: 150px; padding: 15px; border-radius: 1000px; margin: 0 auto 20px;">
+                    <img src="{{ absolute_url(asset('/res/Fonkhiphop-min.png')) }}" alt="" style="display: block; width: 100%">
+                </div>
+                <div style="color: #FFFFFF; text-align: justify; width: 500px; margin: 20px auto; padding: 20px 0">
+                    {% block message %}{% endblock %}
+                </div>
+                <div style="font-size: 13px; text-align: center; margin-top: 20px; padding: 0 30px; color: #FFFFFF">
+                    <p>Cet e-mail est un service automatique. Merci de ne pas répondre. Si vous souhaitez prendre contact avec nous merci d'envoyer un mail à l'adresse mail suivante :
+                        <a href="mailto:contact@fonkhiphop.fr" style="color: #FFFFFF; font-weight: bold;">contact@fonkhiphop.fr</a></p>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,234 @@
+{% extends 'base.html.twig' %}
+
+{% set months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"] %}
+
+{% block title %}Calendrier{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/home.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="section-title">
+            <div class="logo-title">
+                <img src="{{ asset('res/Fonkhiphop-min.png') }}" alt="Logo du titre">
+            </div>
+            <h2>Calendrier</h2>
+        </div>
+
+        <div class="container">
+            <div class="calendar">
+                <div class="row align-items-end">
+                    <div class="col-md-3">
+                        <p><a href="{{ path('home_calendrier', {'month' : prevMonth, 'year' : prevYear }) }}"><i class="fal fa-arrow-alt-left"></i> {{ months[prevMonth-1] }} - {{ prevYear }}</a></p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <h3>{{ months[month_alt] }} - {{ year }}</h3>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <p><a href="{{ path('home_calendrier', {'month' : nextMonth, 'year' : nextYear }) }}">{{ months[nextMonth-1] }} - {{ nextYear }} <i class="fal fa-arrow-alt-right"></i></a></p>
+                    </div>
+                </div>
+                {% set day = 1 %}
+                {% set canCount = 0 %}
+                <div class="line">
+                    <div class="square square-title">
+                        Lundi
+                    </div>
+                    <div class="square square-title">
+                        Mardi
+                    </div>
+                    <div class="square square-title">
+                        Mercredi
+                    </div>
+                    <div class="square square-title">
+                        Jeudi
+                    </div>
+                    <div class="square square-title">
+                        Vendredi
+                    </div>
+                    <div class="square square-title">
+                        Samedi
+                    </div>
+                    <div class="square square-title">
+                        Dimanche
+                    </div>
+                </div>
+                {% for line in 1..lines %}
+                    {% set loopLine = loop.index - 1%}
+                    <div class="line">
+                        {% for square in 1..7 %}
+                            <div class="square">
+                                {% set squareNumber = loop.index + (7 * loopLine) %}
+                                {% set nbrDaySquare = loop.index %}
+
+                                {% if canCount == 1 %}
+                                    {% set day = day + 1 %}
+                                    <div class="day">
+                                        {% if (now|date("d-n-Y") == day ~ "-" ~ month ~ "-" ~ year)  %}
+                                            <span class="today"><span>{{ day }}</span></span>
+                                        {% else %}
+                                            {{ day }}
+                                        {% endif %}
+                                    </div>
+
+                                    {% for stage in stages %}
+                                        {% if stage.dateStart|date("j-n-Y") == day ~ "-" ~ month ~ "-" ~ year %}
+                                            <div class="notif stage stage-begin">
+                                                <a href="#">{{ stage.titre }} <i class="fal fa-info-circle"></i></a>
+                                            </div>
+                                        {% elseif stage.dateEnd|date("j-n-Y") == day ~ "-" ~ month ~ "-" ~ year %}
+                                            <div class="notif stage stage-end">
+
+                                            </div>
+                                        {% else %}
+
+                                            {% if stage.dateStart|date('n') == month and stage.dateEnd|date('n') == month %}
+                                                {% if day > stage.dateStart|date("j") and day < stage.dateEnd|date("j") %}
+                                                    <div class="notif stage stage-middle">
+                                                    </div>
+                                                {% endif %}
+                                            {% elseif stage.dateStart|date('n') == month %}
+                                                {% if day > stage.dateStart|date('j') %}
+                                                    <div class="notif stage stage-middle">
+                                                    </div>
+                                                {% endif %}
+                                            {% elseif stage.dateEnd|date('n') == month %}
+                                                {% if day < stage.dateEnd|date('j') %}
+                                                    <div class="notif stage stage-middle">
+                                                    </div>
+                                                {% endif %}
+                                            {% endif %}
+
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% for cour in cours %}
+                                        {% if cour.jour.id == nbrDaySquare %}
+
+                                            {% if annulations|length > 0 %}
+                                                {% for annulation in annulations %}
+                                                    {% if annulation.dateAnnulation|date("d-n-Y") == day ~ "-" ~ month ~ "-" ~ year %}
+                                                        <div class="notif cours cours-annule">
+                                                            <i class="fal fa-times-circle"></i> {{ cour.libelle }}
+                                                        </div>
+                                                    {% else %}
+                                                        <div class="notif cours">
+                                                            <a href="#">{{ cour.libelle }} <i class="fal fa-info-circle"></i></a>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                <div class="notif cours">
+                                                    <a href="#">{{ cour.libelle }} <i class="fal fa-info-circle"></i></a>
+                                                </div>
+                                            {% endif %}
+
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% for event in events %}
+                                        {% if event.dateEvent|date("d-n-Y") == day ~ "-" ~ month ~ "-" ~ year %}
+                                            <div class="notif event">
+                                                <a href="#">{{ event.libelle }} <i class="fal fa-info-circle"></i></a>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                {% endif %}
+
+                                {% if loopLine == 0 %}
+                                    {% if squareNumber == first %}
+                                        <div class="day">
+                                            {% if (now|date("d-n-Y") == day ~ "-" ~ month ~ "-" ~ year)  %}
+                                                <span class="today"><span>{{ day }}</span></span>
+                                            {% else %}
+                                                {{ day }}
+                                            {% endif %}
+                                        </div>
+
+                                        {% for stage in stages %}
+                                            {% if stage.dateStart|date("j-n-Y") == day ~ "-" ~ month ~ "-" ~ year %}
+                                                <div class="notif stage stage-begin">
+                                                    <div class="notif stage stage-begin">
+                                                        <a href="#">{{ stage.titre }} <i class="fal fa-info-circle"></i></a>
+                                                    </div>
+                                                </div>
+                                            {% elseif stage.dateEnd|date("j-n-Y") == day ~ "-" ~ month ~ "-" ~ year %}
+                                                <div class="notif stage stage-end">
+                                                </div>
+                                            {% else %}
+
+                                                {% if stage.dateStart|date('n') == month and stage.dateEnd|date('n') == month %}
+                                                    {% if day > stage.dateStart|date("j") and day < stage.dateEnd|date("j") %}
+                                                        <div class="notif stage stage-middle">
+                                                        </div>
+                                                    {% endif %}
+                                                {% elseif stage.dateStart|date('n') == month %}
+                                                    {% if day > stage.dateStart|date('j') %}
+                                                        <div class="notif stage stage-middle">
+                                                        </div>
+                                                    {% endif %}
+                                                {% elseif stage.dateEnd|date('n') == month %}
+                                                    {% if day < stage.dateEnd|date('j') %}
+                                                        <div class="notif stage stage-middle">
+                                                        </div>
+                                                    {% endif %}
+                                                {% endif %}
+
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% for cour in cours %}
+                                            {% if cour.jour.id == nbrDaySquare %}
+
+                                                {% if annulations|length > 0 %}
+                                                    {% for annulation in annulations %}
+                                                        {% if annulation.dateAnnulation|date("d-n-Y") == day ~ "-" ~ month ~ "-" ~ year %}
+                                                            <div class="notif cours cours-annule">
+                                                                <i class="fal fa-times-circle"></i> {{ cour.libelle }}
+                                                            </div>
+                                                        {% else %}
+                                                            <div class="notif cours">
+                                                                <a href="#">{{ cour.libelle }} <i class="fal fa-info-circle"></i></a>
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <div class="notif cours">
+                                                        <a href="#">{{ cour.libelle }} <i class="fal fa-info-circle"></i></a>
+                                                    </div>
+                                                {% endif %}
+                                                
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% for event in events %}
+                                            {% if event.dateEvent|date("d-n-Y") == day ~ "-" ~ month ~ "-" ~ year %}
+                                                <div class="notif event">
+                                                    <a href="#">{{ event.libelle }} <i class="fal fa-info-circle"></i></a>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% set canCount = 1 %}
+                                    {% endif %}
+                                {% endif %}
+
+                                {% if day >= jours %}
+                                    {% set canCount = 0 %}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/homeJs.js') }}"></script>
+{% endblock %}

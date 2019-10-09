@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/account.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="banner">
+        <img src="{{ asset('res/banner.jpg') }}" alt="">
+        <div class="info-user">
+            <h2>Mes informations</h2>
+        </div>
+    </div>
+    <div class="content-profile">
+        <div class="info-user-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <i class="fal fa-id-card"></i>
+                        {{ app.user.prenom }} {{ app.user.nom }}
+                    </div>
+                    <div class="col-md-4">
+                        <i class="fal fa-at"></i> {{ app.user.email }}
+                    </div>
+                    <div class="col-md-4">
+                        <i class="fal fa-birthday-cake"></i> {{ app.user.dateDeNaissance|date('d / m / Y') }}
+                    </div>
+                </div>
+                <div class="separation"></div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <i class="fal fa-phone"></i> {{ app.user.telephone }}
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fal fa-home"></i> {{ app.user.adresse }},{{ app.user.complement ? ' ' ~ app.user.complement ~ ',' : '' }} {{ app.user.ville }}, {{ app.user.cp }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-3">
+                        {% if not app.user.adherent %}
+                            <a href="#" class="link-perso link-grey mt-3">Devenir adhérent <i class="fal fa-crown"></i></a>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-3">
+                        <a href="#" class="link-perso mt-3">Modifier mes infos <i class="fal fa-pen"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="user-content">
+        <div class="container">
+            {% if infos|length == 0 %}
+                <p class="count-0">Aucune information pour le moment</p>
+            {% endif %}
+            <div class="row">
+                {% for info in infos %}
+                    <div class="col-md-4">
+                        <div class="show-info-imp" style="border-color: {{ info.category.color }}">
+                            <div class="cat-name" style="background-color: {{ info.category.color }}; border-color: {{ info.category.color }}">
+                                {{ info.category.libelle }}
+                            </div>
+                            <div class="content" style="border-color: {{ info.category.color }}">
+                                <h4>{{ info.titre }}</h4>
+                                <div class="info-text">
+                                    <p>
+                                        {{ info.message|nl2br }}
+                                    </p>
+                                    {% if info.message|length > 200 %}
+                                        <div class="overlay"></div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if info.message|length > 200 %}
+                                <button class="button-show-info" id="button-show-info"><i class="fal fa-arrow-alt-down"></i></button>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <a href="#" class="link-perso w-75 ml-auto mr-auto">Voir toutes les informations générales ( {{ nbrInfos }} )</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/accountJs.js') }}"></script>
+{% endblock %}

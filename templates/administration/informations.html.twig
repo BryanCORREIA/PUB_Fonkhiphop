@@ -1,0 +1,125 @@
+{% extends 'base-adm.html.twig' %}
+
+{% block title %}Diffusion d'informations{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/admin.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h2>Diffusion d'information</h2>
+    <div class="box-action-info flex-container justify-content-between">
+        <div class="w-30">
+            <button type="button" class="link-perso" data-toggle="modal" data-target="#AddCategory">
+                Ajouter une catégorie d'information
+            </button>
+        </div>
+
+        <div class="w-65">
+            <button type="button" class="link-perso" data-toggle="modal" data-target="#AddInformation">
+                Diffuser une information générale
+            </button>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="AddCategory" tabindex="-1" role="dialog" aria-labelledby="AddCategoryTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                {{ form_start(formAddCategory) }}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddCategoryTitle">Ajouter une catégorie d'information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_widget(formAddCategory.libelle) }}
+                    {{ form_row(formAddCategory.color) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-bs-perso" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="link-perso">Ajouter</button>
+                </div>
+                {{ form_end(formAddCategory) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="AddInformation" tabindex="-1" role="dialog" aria-labelledby="AddInformationTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                {{ form_start(formAddInfo) }}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddInformationTitle">Diffuser une information générale</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_label(formAddInfo.category) }}
+                    <div class="box-select">
+                        {{ form_widget(formAddInfo.category) }}
+                    </div>
+                    {{ form_widget(formAddInfo.titre) }}
+                    {{ form_widget(formAddInfo.message) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-bs-perso" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="link-perso">Ajouter</button>
+                </div>
+                {{ form_end(formAddInfo) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="show-informations">
+        <div class="flex-container justify-content-between">
+            <div class="w-30">
+                <div class="list-cat">
+                    <h4>Liste des catégories</h4>
+                    {% for cat in listCategory %}
+                        <div class="box-table">
+                            <a href="{{ path('administration_delete_cat_info', { 'cat' : cat.id }) }}" class="delete-table"><i class="fal fa-times"></i></a>
+                            <table class="one-table">
+
+                                <tr>
+                                    <th>Libelle</th>
+                                    <td>{{ cat.libelle }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Couleur</th>
+                                    <td class="td-color" style="background-color: {{ cat.color }}; border-bottom: 2px solid {{ cat.color }};"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="w-65">
+                <div class="list-cat">
+                    <h4>Liste des informations diffusées</h4>
+                    {% for info in listInfo %}
+                        <div class="box-table">
+                            <a href="{{ path('administration_delete_info', { 'info' : info.id }) }}" class="delete-table"><i class="fal fa-times"></i></a>
+                            <table class="one-table">
+                                <tr>
+                                    <th>Titre</th>
+                                    <td>{{ info.titre }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Catégorie</th>
+                                    <td style="color: {{ info.category.color }};">{{ info.category.libelle }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Message</th>
+                                    <td>{{ info.message|nl2br }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

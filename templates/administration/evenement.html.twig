@@ -1,0 +1,137 @@
+{% extends 'base-adm.html.twig' %}
+
+{% block title %}Gestion des événements{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/admin.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h2>Gestion des événements</h2>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <button type="button" class="link-perso" data-toggle="modal" data-target="#AddType">
+                    Ajouter un type d'événement
+                </button>
+
+                <div class="list-cat">
+                    <h4>Liste des types d'événement</h4>
+                    {% for type in typeEnvs %}
+                        <div class="box-table">
+                            <a href="{{ path('administration_delete_type_env', {'type' : type.id}) }}" class="delete-table"><i class="fal fa-times"></i></a>
+                            <table class="one-table">
+                                <tr>
+                                    <th>Libelle</th>
+                                    <td>{{ type.libelle }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-8">
+                <button type="button" class="link-perso" data-toggle="modal" data-target="#AddCours">
+                    Ajouter un événement
+                </button>
+
+                <div class="list-cat">
+                    <h4>Liste des événements</h4>
+                    {% for evenement in evenements %}
+                        <div class="box-table">
+                            <a href="{{ path('administration_delete_evenement', {'env' : evenement.id}) }}" class="delete-table"><i class="fal fa-times"></i></a>
+                            <table class="one-table">
+                                <tr>
+                                    <th>Libelle</th>
+                                    <td>{{ evenement.libelle }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Type d'événement</th>
+                                    <td>{{ evenement.typeEnv.libelle }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date</th>
+                                    <td>{{ evenement.dateEvent|date('d-m-Y') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Lieux</th>
+                                    <td>{{ evenement.adresse }}, {{ evenement.ville }}, {{ evenement.cp }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Prix</th>
+                                    <td>{{ evenement.prix ? evenement.prix ~ ' €' : 'Gratuit' }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="AddType" tabindex="-1" role="dialog" aria-labelledby="AddTypeTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                {{ form_start(formAddTypeEnv) }}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddTypeTitle">Ajouter un type d'événement</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_widget(formAddTypeEnv.libelle) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-bs-perso" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="link-perso">Ajouter</button>
+                </div>
+                {{ form_end(formAddTypeEnv) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="AddCours" tabindex="-1" role="dialog" aria-labelledby="AddCoursTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                {{ form_start(formAddEvenement) }}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddCoursTitle">Ajouter un cours</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_widget(formAddEvenement.libelle) }}
+                    {{ form_label(formAddEvenement.type_env) }}
+                    <div class="box-select">
+                        {{ form_widget(formAddEvenement.type_env) }}
+                    </div>
+                    {{ form_label(formAddEvenement.dateEvent) }}
+                    <div class="box-input-date">
+                        {{ form_widget(formAddEvenement.dateEvent) }}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_widget(formAddEvenement.adresse) }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ form_widget(formAddEvenement.ville) }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ form_widget(formAddEvenement.cp) }}
+                        </div>
+                    </div>
+                    {{ form_widget(formAddEvenement.prix) }}
+                    {{ form_widget(formAddEvenement.description) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-bs-perso" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="link-perso">Ajouter</button>
+                </div>
+                {{ form_end(formAddEvenement) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

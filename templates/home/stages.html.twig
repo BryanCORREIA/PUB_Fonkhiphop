@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stages{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/home.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="section-title">
+            <div class="logo-title">
+                <img src="{{ asset('res/Fonkhiphop-min.png') }}" alt="Logo du titre">
+            </div>
+            <h2>Stages</h2>
+        </div>
+
+        <div class="box-present">
+            <div class="pattern-present"></div>
+            <div class="present-text">
+                <p>
+                    Les stages de Fonkhiphop vous permettront de découvrir avec un danseur expérimenté une style de danse en particulier sur plusieurs jours.
+                    Ils seront là pour enrichir votre niveau et vous apporter de la diversité dans vos gestes et enchainements.
+                </p>
+                <p>
+                    Ouvert à tous, les stages seront principalement disponible pendant les vacances scolaires afin de laisser la possibilité à un maximum de monde de venir, découvrir, ou progresser dans le style de danse proposé.
+                </p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="container">
+                <h2 class="text-left mb-5">Nos stages</h2>
+                {% if stages|length == 0 %}
+                    <p class="count-0">Aucun stage de prévu pour le moment</p>
+                {% endif %}
+                <div class="row">
+                    {% for stage in stages %}
+                        <div class="col-md-4">
+                            <div class="list-obj">
+                                <div class="name-obj">{{ stage.styleDanse }}</div>
+                                <div class="obj-title">{{ stage.titre }}</div>
+                                <div class="info-obj">
+                                    <div class="container-fluid">
+                                        <div class="info-section">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-3">
+                                                    <div class="right-aside">
+                                                        Participant
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="left-aside">
+                                                        <p>De {{ stage.ageMin }} à {{ stage.ageMax }} ans</p>
+                                                        <p>Pour {{ stage.nbrPers }} participants</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="info-section">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-3">
+                                                    <div class="right-aside">
+                                                        Horaires
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="left-aside">
+                                                        <p>Du {{ stage.dateStart|date('d/m/Y') }} au {{ stage.dateEnd|date('d/m/Y') }}</p>
+                                                        <p>De {{ stage.dateStart|date('H') }}h{{ stage.dateStart|date('i') }} à {{ stage.dateEnd|date('H') }}h{{ stage.dateEnd|date('i') }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="info-section">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-3">
+                                                    <div class="right-aside">
+                                                        Lieux
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="left-aside">
+                                                        <p>{{ stage.adresse }}</p>
+                                                        <p>{{ stage.cp }}, {{ stage.ville }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="info-section">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-3">
+                                                    <div class="right-aside">
+                                                        Prix
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="left-aside">
+                                                        <p>{{ stage.prix }} €</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="know-more-info">
+                                    <a href="#">En savoir plus</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/homeJs.js') }}"></script>
+{% endblock %}

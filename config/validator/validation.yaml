@@ -1,0 +1,34 @@
+App\Entity\User:
+  properties:
+    civilite:
+      - NotBlank:
+          message: "Ce champ est obligatoire."
+    email:
+      - Email:
+          message: "Le format de l'adresse Email n'est pas correct."
+      - NotBlank:
+          message: "Ce champ est obligatoire."
+    prenom:
+      - NotBlank:
+          message: "Ce champ est obligatoire."
+    nom:
+      - NotBlank:
+          message: "Ce champ est obligatoire."
+    date_de_naissance:
+      - NotBlank:
+          message: "Ce champ est obligatoire."
+    telephone:
+      - NotBlank:
+          message: "Ce champ est obligatoire."
+    adresse:
+      - NotBlank:
+          message: "Ce champ est obligatoire."
+    ville:
+      - NotBlank:
+          message: "Ce champ est obligatoire."
+    password:
+      - NotBlank:
+          message: "Ce champ est obligatoire."
+      - Length:
+          min: 8
+          minMessage: 'Votre mot de passe doit contenir au moins {{ limit }} caractères.'

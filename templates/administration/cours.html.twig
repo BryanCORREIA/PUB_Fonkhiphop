@@ -1,0 +1,193 @@
+{% extends 'base-adm.html.twig' %}
+
+{% block title %}Gestion des cours{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/admin.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h2>Gestion des cours</h2>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" class="link-perso" data-toggle="modal" data-target="#AddGroupe">
+                    Ajouter un groupe d'élève
+                </button>
+
+                <div class="list-cat">
+                    <h4>Liste des groupes</h4>
+                    {% for groupe in groupes %}
+                        <div class="box-table">
+                            <a href="{{ path('administration_delete_groupe', {'groupe' : groupe.id}) }}" class="delete-table"><i class="fal fa-times"></i></a>
+                            <table class="one-table">
+                                <tr>
+                                    <th>Libelle</th>
+                                    <td>{{ groupe.libelle }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Ages</th>
+                                    <td>De {{ groupe.ageMin }} à {{ groupe.ageMax }} ans</td>
+                                </tr>
+                            </table>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="link-perso" data-toggle="modal" data-target="#AddCours">
+                    Ajouter un cours
+                </button>
+
+                <div class="list-cat">
+                    <h4>Liste des cours</h4>
+                    {% for cour in cours %}
+                        <div class="box-table">
+                            <a href="{{ path('administration_delete_cours', {'cours' : cour.id}) }}" class="delete-table"><i class="fal fa-times"></i></a>
+                            <table class="one-table">
+                                <tr>
+                                    <th>Libelle</th>
+                                    <td>{{ cour.libelle }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Groupe</th>
+                                    <td>{{ cour.groupe.libelle }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Horaire</th>
+                                    <td>Le {{ cour.jour.libelle }}, de {{ cour.heureDeb|date('H:i') }} à {{ cour.heureFin|date('H:i') }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="link-perso" data-toggle="modal" data-target="#AddAnnulation">
+                    Ajouter une annulation
+                </button>
+
+                <div class="list-cat">
+                    <h4>Liste des annulations</h4>
+                    {% for annulation in annulations %}
+                        <div class="box-table">
+                            <a href="{{ path('administration_delete_annulation', {'annulation' : annulation.id }) }}" class="delete-table"><i class="fal fa-times"></i></a>
+                            <table class="one-table">
+                                <tr>
+                                    <th>Cours</th>
+                                    <td>{{ annulation.cour.libelle }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date</th>
+                                    <td>{{ annulation.dateAnnulation|date('d-m-Y') }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="AddGroupe" tabindex="-1" role="dialog" aria-labelledby="AddGroupeTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                {{ form_start(formAddGroupe) }}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddGroupeTitle">Ajouter un groupe d'élève</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_widget(formAddGroupe.libelle) }}
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_widget(formAddGroupe.age_min) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_widget(formAddGroupe.age_max) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-bs-perso" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="link-perso">Ajouter</button>
+                </div>
+                {{ form_end(formAddGroupe) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="AddCours" tabindex="-1" role="dialog" aria-labelledby="AddCoursTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                {{ form_start(formAddCours) }}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddCoursTitle">Ajouter un cours</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_widget(formAddCours.libelle) }}
+                    <div class="box-select">
+                        {{ form_widget(formAddCours.groupe) }}
+                    </div>
+                    <div class="box-select">
+                        {{ form_widget(formAddCours.jour) }}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_label(formAddCours.heure_deb) }}
+                            <div class="box-input-date box-input-time">
+                                {{ form_widget(formAddCours.heure_deb) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_label(formAddCours.heure_fin) }}
+                            <div class="box-input-date box-input-time">
+                                {{ form_widget(formAddCours.heure_fin) }}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-bs-perso" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="link-perso">Ajouter</button>
+                </div>
+                {{ form_end(formAddCours) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="AddAnnulation" tabindex="-1" role="dialog" aria-labelledby="AddAnnulationTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                {{ form_start(formAddAnnulation) }}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddAnnulationTitle">Ajouter une annulation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_label(formAddAnnulation.cour) }}
+                    <div class="box-select">
+                        {{ form_widget(formAddAnnulation.cour) }}
+                    </div>
+                    {{ form_label(formAddAnnulation.date_annulation) }}
+                    <div class="box-input-date">
+                        {{ form_widget(formAddAnnulation.date_annulation) }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-bs-perso" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="link-perso">Ajouter</button>
+                </div>
+                {{ form_end(formAddAnnulation) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

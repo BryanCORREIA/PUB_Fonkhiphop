@@ -1,0 +1,35 @@
+security:
+    providers:
+        user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+
+    encoders:
+        App\Entity\User:
+            algorithm: auto
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_GLOBAL
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            pattern:    ^/
+            user_checker: App\Security\UserChecker
+            anonymous: true
+            provider: user_provider
+            form_login:
+                login_path: security_login
+                check_path: security_login
+            logout:
+                path:   security_logout
+                target: /
+
+
+    access_control:
+        #- { path: ^/, requires_channel: https }
+        - { path: ^/mon-compte, roles: ROLE_GLOBAL }
+        - { path: ^/administration, roles: ROLE_ADMIN }

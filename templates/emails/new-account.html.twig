@@ -1,0 +1,17 @@
+{% extends 'base-email.html.twig' %}
+
+{% block title_mail %}
+    {{ title }}
+{% endblock %}
+
+{% block message %}
+
+    <p>Bienvenue {{ user.prenom }} sur Fonkhiphop !</p>
+    <p>L'aventure commence ici pour vous, veuiller cliquer sur le boutton ci dessous pour activer votre nouveau compte. Attention ce lien expirera dans 24 heures.</p>
+    <div style="padding: 30px 0">
+        <a href="{{ absolute_url(path('security_activation_account', { 'processKey' : user.processKey })) }}"
+           style="display: block; width: 300px; background-color: #FFFFFF; padding: 5px 20px; color: #173b73; border-radius: 4px; text-align: center; margin: 0 auto"
+        >Valider votre compte</a>
+    </div>
+
+{% endblock %}

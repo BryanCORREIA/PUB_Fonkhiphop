@@ -1,0 +1,54 @@
+{% set currentRoute = app.request.get('_route') %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %} - Administration - Fonkhiphop</title>
+    <link rel="stylesheet" href="{{ asset('lib/fontawesome/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('lib/bootstrap-4/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+
+    <div class="left-aside" id="left-aside">
+        <div class="top-left-aside">
+            <div class="flex-container align-items-center box-logo">
+                <div class="box-logo-aside">
+                    <img src="{{ asset('res/Fonkhiphop-white.svg') }}" alt="">
+                </div>
+                <p class="next-logo">Fonkhiphop</p>
+            </div>
+        </div>
+        <div class="content-left-aside">
+            <a href="{{ path('administration_index') }}" class="{{ currentRoute == 'administration_index' ? 'active' }}"><i class="fal fa-home"></i> Accueil</a>
+            <a href="{{ path('administration_adh') }}" class="{{ currentRoute == 'administration_adh' ? 'active' }}"><i class="fal fa-users"></i> Adhérents</a>
+            <a href="{{ path('administration_informations') }}" class="{{ currentRoute == 'administration_informations' ? 'active' }}"><i class="fal fa-info"></i> Informations</a>
+            <a href="{{ path('administration_cours') }}" class="{{ currentRoute == 'administration_cours' ? 'active' }}"><i class="fal fa-users-class"></i> Cours</a>
+            <a href="{{ path('administration_stage') }}" class="{{ currentRoute == 'administration_stage' ? 'active' }}"><i class="fal fa-chalkboard-teacher"></i> Stages</a>
+            <a href="{{ path('administration_evenement') }}" class="{{ currentRoute == 'administration_evenement' ? 'active' }}"><i class="fal fa-calendar-alt"></i> Événements</a>
+            <a href="#"><i class="fal fa-shopping-bag"></i> Boutique</a>
+            <a href="#"><i class="fal fa-envelope"></i> Emails</a>
+        </div>
+    </div>
+    <div class="right-aside" id="right-aside">
+        <div class="top-right-aside">
+            <div class="button-deploy">
+                <button id="button-deploy"><i class="far fa-bars"></i></button>
+            </div>
+        </div>
+        <div class="content-right-aside">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+
+    <script src="{{ asset('build/runtime.js') }}"></script>
+    <script src="{{ asset('build/adminJs.js') }}"></script>
+    <script src="{{ asset('build/vendors~adminJs.js') }}"></script>
+    <script src="{{ asset('/lib/jQuery-3.3.1/jQuery.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ asset('/lib/Ajax/popper.min.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ asset('/lib/bootstrap-4/dist/js/bootstrap.min.js') }}" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cours{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/home.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="section-title">
+            <div class="logo-title">
+                <img src="{{ asset('res/Fonkhiphop-min.png') }}" alt="Logo du titre">
+            </div>
+            <h2>Cours</h2>
+        </div>
+
+        <div class="box-present">
+            <div class="pattern-present"></div>
+            <div class="present-text">
+                <p>
+                    Les cours seront fait sur un programme annuel. Cette programmation aura pour but d'offrir à nos élèves les meilleures procédés pour progresser, apprécier et apprendre tout en s'amusant.
+                </p>
+                <p>
+                    Les ados et 2 ème années auront le choix de pouvoir prendre des cours supplémentaires.
+                    Des cours sur votre commande et programmé selon votre disponibilité. Le choix du cours que vous voulez prendre, le nombre d'heure, les cours supplémentaires dit Sessions
+                    auront pour but de cibler le travail voulu
+                    le progrès accélèré,
+                    la pédagogie, l'échange et questionnement.
+                </p>
+                <p>
+                    Les Kidz ( petits ) 6 ans 11 ans 1 er année :
+                    15h30 à 16h30
+                    Initiation et découverte
+                    Les cours seront basés sur l'éveil, l'amusement à travers la danse, de la musique et des mouvements.
+
+                    Des cours amusants et énergique pour les Kidz
+                    Votre enfants va apprendre tout en faisant énormément de sport.
+                    Rien de mieux que le Hip-hop.
+                </p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="container">
+                <h2 class="text-left mb-5">Nos cours</h2>
+                {% if cours|length == 0 %}
+                    <p class="count-0">Aucun cours de prévu pour le moment</p>
+                {% endif %}
+                <div class="row">
+                    {% for cour in cours %}
+                        <div class="col-md-4">
+                            <div class="list-obj">
+                                <div class="name-obj">{{ cour.libelle }}</div>
+                                <div class="info-obj">
+                                    <div class="container-fluid">
+                                        <div class="info-section">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-3">
+                                                    <div class="right-aside">
+                                                        Élève
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="left-aside">
+                                                        <p>{{ cour.groupe.libelle }}</p>
+                                                        <p>De {{ cour.groupe.ageMin }} à {{ cour.groupe.ageMax }} ans</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="info-section">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-3">
+                                                    <div class="right-aside">
+                                                        Horaires
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="left-aside">
+                                                        <p>Le {{ cour.jour.libelle }}</p>
+                                                        <p>De {{ cour.heureDeb|date('H') }}h{{ cour.heureDeb|date('i') }} à {{ cour.heureFin|date('H') }}h{{ cour.heureFin|date('i') }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="info-section">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-3">
+                                                    <div class="right-aside">
+                                                        Lieux
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="left-aside">
+                                                        <p>Foyer Rural, Rue division Leclerc</p>
+                                                        <p>53200, Chateau Gontier</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/homeJs.js') }}"></script>
+{% endblock %}

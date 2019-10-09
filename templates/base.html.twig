@@ -1,0 +1,144 @@
+{% set currentRoute = app.request.get('_route') %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %}{% endblock %} - Fonkhiphop</title>
+        <link rel="stylesheet" href="{{ asset('lib/fontawesome/css/all.css') }}">
+        <link rel="stylesheet" href="{{ asset('lib/bootstrap-4/dist/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <div class="flash-messages">
+            {% for message in app.flashes('success') %}
+                <div class="flash-message success">
+                    <div class="flash-illus">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="content-flash">
+                        <h2>Succès</h2>
+                        <p>{{ message|raw }}</p>
+                    </div>
+                    <div class="link-flash">
+                        <button class="btn-close-flash">Continuer</button>
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% for message in app.flashes('failure') %}
+                <div class="flash-message failure">
+                    <div class="flash-illus">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="content-flash">
+                        <h2>Échec</h2>
+                        <p>{{ message|raw }}</p>
+                    </div>
+                    <div class="link-flash">
+                        <button class="btn-close-flash">Réessayer</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <header>
+            <div class="header-content">
+                <div class="header-links">
+                    <a href="{{ path('home_index') }}">
+                        <div class="header-logo">
+                            <div class="logo-box">
+                                <img src="{{ asset('res/Fonkhiphop-min.png') }}" alt="">
+                            </div>
+                            <h1>fonkhiphop</h1>
+                        </div>
+                    </a>
+                    <a href="{{ path('home_index') }}" class="{{ currentRoute == "home_index" ? "active" }}">Accueil</a>
+                    <a href="{{ path('home_cours') }}" class="{{ currentRoute == "home_cours" ? "active" }}">Cours</a>
+                    <a href="{{ path('home_stages') }}" class="{{ currentRoute == "home_stages" ? "active" }}">Stages</a>
+                    <a href="{{ path('home_calendrier', {'month' : 'now'|date('n'), 'year' : 'now'|date('Y') }) }}" class="{{ currentRoute == "home_calendrier" ? "active" }}">Calendrier</a>
+                    <!-- <a href="#">Boutique</a> -->
+                    <a href="#">Contact</a>
+                </div>
+                <div class="header-link-account">
+                    {% if not app.user %}
+                        <a href="{{ path('security_login') }}" class="link-connect">Connexion</a>
+                        <a href="{{ path('security_signup') }}" class="link-first">Premier pas</a>
+                    {% else %}
+                        {% if not is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('security_logout') }}" class="link-connect">Déconnexion</a>
+                            <a href="{{ path('account_index') }}" class="link-first">Mon espace membre</a>
+                        {% else %}
+                            <a href="{{ path('security_logout') }}" class="link-first"><i class="fal fa-door-open"></i></a>
+                            <a href="{{ path('account_index') }}" class="link-first"><i class="fal fa-user"></i></a>
+                            <a href="{{ path('administration_index') }}" class="link-first link-grey"><i class="fal fa-wrench"></i></a>
+                            <br>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+
+        <header class="nav-stick" id="nav-stick">
+            <div class="header-content">
+                <div class="header-links">
+                    <div class="header-logo">
+                        <div class="logo-box">
+                            <img src="{{ asset('res/Fonkhiphop-min.png') }}" alt="">
+                        </div>
+                        <h1>fonkhiphop</h1>
+                    </div>
+                    <a href="{{ path('home_index') }}" class="{{ currentRoute == "home_index" ? "active" }}">Accueil</a>
+                    <a href="{{ path('home_cours') }}" class="{{ currentRoute == "home_cours" ? "active" }}">Cours</a>
+                    <a href="{{ path('home_stages') }}" class="{{ currentRoute == "home_stages" ? "active" }}">Stages</a>
+                    <a href="{{ path('home_calendrier', {'month' : 'now'|date('n'), 'year' : 'now'|date('Y') }) }}" class="{{ currentRoute == "home_calendrier" ? "active" }}">Calendrier</a>
+                    <!-- <a href="#">Boutique</a> -->
+                    <a href="#">Contact</a>
+                </div>
+                <div class="header-link-account">
+                    {% if not app.user %}
+                        <a href="{{ path('security_login') }}" class="link-connect">Connexion</a>
+                        <a href="{{ path('security_signup') }}" class="link-first">Premier pas</a>
+                    {% else %}
+                        {% if not is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('security_logout') }}" class="link-connect">Déconnexion</a>
+                            <a href="{{ path('account_index') }}" class="link-first">Mon espace membre</a>
+                        {% else %}
+                            <a href="{{ path('security_logout') }}" class="link-first"><i class="fal fa-door-open"></i></a>
+                            <a href="{{ path('account_index') }}" class="link-first"><i class="fal fa-user"></i></a>
+                            <a href="{{ path('administration_index') }}" class="link-first link-grey"><i class="fal fa-wrench"></i></a>
+                            <br>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+
+        {% block body %}{% endblock %}
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-links">
+                    <p>
+                        <a href="#">Conditions d'utilisation</a>
+                        <a href="#">Conditions général de vente</a>
+                        Développé par
+                        <a href="https://www.bryancorreia.fr" target="_blank">Bryan CORREIA</a>
+                    </p>
+                </div>
+                <div class="footer-network">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </footer>
+
+        <script src="{{ asset('build/runtime.js') }}"></script>
+        <script src="{{ asset('/lib/jQuery-3.3.1/jQuery.js') }}" crossorigin="anonymous"></script>
+        <script src="{{ asset('/lib/Ajax/popper.min.js') }}" crossorigin="anonymous"></script>
+        <script src="{{ asset('/lib/bootstrap-4/dist/js/bootstrap.min.js') }}" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

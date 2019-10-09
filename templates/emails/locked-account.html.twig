@@ -1,0 +1,23 @@
+{% extends 'base-email.html.twig' %}
+
+{% block title_mail %}
+    {{ title }}
+{% endblock %}
+
+{% block message %}
+
+    <p>Bonjour {{ user.prenom }}, </p>
+    <p>Votre compte a été bloqué suite à trop de tentative de saisie de mot de passe. Nous vous proposons de débloquer votre compte en cliquant sur le bouton ci-dessous ou de directement réinitialiser votre mot de passe en cliquant également sur le lien approprié ci-dessous. Le lien de réactivation de votre compte expirera dans 24 heures ainsi que la possibilité de réinitialiser votre mot de passe dans le cas où vous dépassez le délais de 24 heures, une nouvelle demande sera nécessaire.</p>
+    <div style="padding: 30px 0">
+        <a href="{{ absolute_url(path('security_unlock_account', { 'processKey' : user.processKey })) }}"
+           style="display: block; width: 300px; background-color: #FFFFFF; padding: 5px 20px; color: #173b73; border-radius: 4px; text-align: center; margin: 0 auto"
+        >Débloquer votre compte</a>
+    </div>
+
+    <div style="padding: 30px 0">
+        <a href="{{ absolute_url(path('security_reset_password', { 'processKey' : user.processKey })) }}"
+           style="display: block; width: 300px; background-color: #FFFFFF; padding: 5px 20px; color: #173b73; border-radius: 4px; text-align: center; margin: 0 auto"
+        >Réinitialiser votre mot de passe</a>
+    </div>
+
+{% endblock %}

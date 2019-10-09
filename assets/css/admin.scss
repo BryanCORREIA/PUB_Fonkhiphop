@@ -1,0 +1,271 @@
+@import "variables";
+
+body {
+  color: #434a54;
+}
+
+h2 {
+  text-align: center;
+  font-weight: 300;
+  font-variant: small-caps;
+  letter-spacing: 2px;
+  margin: 10px 0 30px 0;
+}
+
+h4 {
+  font-variant: small-caps;
+  font-weight: 300;
+  margin: 30px 0 10px 0;
+}
+
+
+
+.thead-dark th {
+  background-color: $midColor !important;
+  border-color: $midColor !important;
+}
+
+.left-aside {
+  width: 60px;
+  background-color: darken($midColor, 10);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  color: white;
+  overflow: hidden;
+  transition: width .7s ease-in-out;
+
+  &.left-aside-open {
+    width: 15%;
+  }
+
+  .top-left-aside {
+    background-color: $darkColor;
+    height: 60px;
+
+    .box-logo-aside {
+      width: 60px;
+      padding: 12px 15px;
+    }
+
+    .next-logo {
+      width: 0;
+      margin: 0;
+    }
+  }
+
+  .content-left-aside {
+    a {
+      display: block;
+      margin: 20px 0;
+      border-left: 0 solid darken($midColor, 10);
+      transition: .3s ease-in-out;
+      padding: 5px 0;
+      white-space: nowrap;
+      font-variant: all-small-caps;
+
+      i {
+        width: 60px;
+        text-align: center;
+        font-size: 20px;
+      }
+
+      &:hover, &.active {
+        border-left: 5px solid white;
+      }
+    }
+  }
+}
+
+.right-aside {
+  transition: margin .7s ease-in-out;
+  margin-left: 60px;
+  position: relative;
+
+  &.left-aside-open {
+    margin-left: 15%;
+
+    .top-right-aside {
+      margin-left: 15%;
+    }
+  }
+
+  .top-right-aside {
+    margin-left: 60px;
+    background-color: #C9C9C9;
+    height: 60px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    transition: margin .7s ease-in-out;
+
+    .button-deploy {
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      transform: translateY(-50%);
+    }
+  }
+
+  .content-right-aside {
+    margin-top: 60px;
+    padding: 20px;
+  }
+}
+
+.high-title {
+  margin-top: 315px;
+
+  h1 {
+    text-align: center;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    font-size: 51px;
+  }
+
+  p {
+    text-align: center;
+    font-variant: small-caps;
+    letter-spacing: 4px;
+  }
+}
+
+.btn-toggle {
+  display: block;
+  margin: 0 auto;
+  background-color: #696969;
+  width: 50px;
+  height: 26px;
+  border-radius: 100px;
+  position: relative;
+  padding: 0;
+  transition: 0.3s;
+
+  &::after {
+    display: block;
+    content: '';
+    background-color: white;
+    height: 20px;
+    width: 20px;
+    border-radius: 100px;
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: 0.3s;
+  }
+
+  &.on-changement {
+    background-color: #C9C9C9;
+    cursor: not-allowed;
+
+    &::after {
+      transform: translate(20px, -50%);
+    }
+  }
+
+  &.active {
+    background-color: #34ce57;
+
+    &::after {
+      transform: translate(20px, -50%);
+    }
+
+    &.on-changement {
+      background-color: #C9C9C9;
+
+      &::after {
+        transform: translate(0, -50%);
+      }
+    }
+  }
+}
+
+.modal-content {
+  border: none;
+  border-radius: 4px;
+
+  .modal-header {
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+  }
+}
+
+form {
+  input {
+    margin-bottom: 10px;
+  }
+}
+
+.box-table {
+  position: relative;
+
+  .delete-table {
+    display: block;
+    height: 26px;
+    width: 26px;
+    background-color: #F1F1F1;
+    border-radius: 100px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    transition: 0.4s ease-in-out;
+
+    i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &:hover {
+      background-color: #b21f2d;
+      color: white;
+    }
+  }
+}
+
+.one-table {
+  border-radius: 4px;
+  width: 100%;
+  border: 2px solid #F1F1F1;
+  margin-bottom: 20px;
+
+  th {
+    color: white;
+    background-color: $midColor;
+    font-weight: normal;
+    padding: 7px 20px 7px 10px;
+    border-bottom: 2px solid white;
+    border-top: 2px solid $midColor;
+    border-left: 2px solid $midColor;
+  }
+
+  td {
+    width: 100%;
+    font-weight: normal;
+    padding: 7px 10px;
+    border-bottom: 2px solid #F1F1F1;
+  }
+
+  tr:last-child th {
+    border-color: $midColor;
+  }
+
+  tr:last-child td {
+    border: none;
+  }
+
+  .td-color {
+    border-right: 2px solid #F1F1F1 !important;
+  }
+}
+
+.list-stage {
+  th {
+    width: 30%;
+  }
+}

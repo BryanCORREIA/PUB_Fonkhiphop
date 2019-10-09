@@ -1,0 +1,115 @@
+home_index:
+    path: /
+    controller: App\Controller\HomeController::index
+
+home_cours:
+    path: /cours
+    controller: App\Controller\HomeController::cours
+
+home_stages:
+    path: /stages
+    controller: App\Controller\HomeController::stages
+
+home_calendrier:
+    path: /calendrier/{month}-{year}
+    controller: App\Controller\HomeController::calendrier
+
+account_index:
+    path: /mon-compte
+    controller: App\Controller\AccountController::index
+
+administration_index:
+    path: /administration
+    controller: App\Controller\AdministrationController::index
+
+administration_adh:
+    path: /administration/gestion-adherent
+    controller: App\Controller\AdministrationController::adherent
+
+administration_adh_toggle:
+    path: /administration/toggle-adherent/{adh}
+    controller: App\Controller\AdministrationController::toggleAdherent
+
+administration_informations:
+    path: /administration/informations
+    controller: App\Controller\AdministrationController::informations
+
+administration_delete_cat_info:
+    path: /administration/delete-cat-info/{cat}
+    controller: App\Controller\AdministrationController::deleteCategoryInfo
+
+administration_delete_info:
+    path: /administration/delete-info/{info}
+    controller: App\Controller\AdministrationController::deleteInfo
+
+administration_stage:
+    path: /administration/gestion-stage
+    controller: App\Controller\AdministrationController::stage
+
+administration_delete_stage:
+    path: /administration/delete-stage/{stage}
+    controller: App\Controller\AdministrationController::deleteStage
+
+administration_cours:
+    path: /administration/cours
+    controller: App\Controller\AdministrationController::cours
+
+administration_delete_cours:
+    path: /administration/delete-cours/{cours}
+    controller: App\Controller\AdministrationController::deleteCours
+
+administration_delete_groupe:
+    path: /administration/delete-groupe/{groupe}
+    controller: App\Controller\AdministrationController::deleteGroupe
+
+administration_delete_annulation:
+    path: /administration/delete-annulation/{annulation}
+    controller: App\Controller\AdministrationController::deleteAnnulation
+
+administration_evenement:
+    path: /administration/evenement
+    controller: App\Controller\AdministrationController::evenement
+
+administration_delete_evenement:
+    path: /administration/delete-evenement/{env}
+    controller: App\Controller\AdministrationController::deleteEvenement
+
+administration_delete_type_env:
+    path: /administration/delete-type-evenement/{type}
+    controller: App\Controller\AdministrationController::deleteTypeEnv
+
+security_login:
+    path: /connexion
+    controller: App\Controller\SecurityController::login
+
+security_signup:
+    path: /inscription
+    controller: App\Controller\SecurityController::signup
+
+security_request_password:
+    path: /recuperation-mot-de-passe
+    controller: App\Controller\SecurityController::requestPassword
+
+security_reset_password:
+    path: /reinitialisation/{processKey}
+    controller: App\Controller\SecurityController::resetPassword
+
+security_activation:
+    path: /activation/{email}
+    controller: App\Controller\SecurityController::wantActivation
+
+security_activation_account:
+    path: /activation-validation/{processKey}
+    controller: App\Controller\SecurityController::activation
+
+security_unlock:
+    path: /deblocage/{email}
+    controller: App\Controller\SecurityController::unlock
+
+security_unlock_account:
+    path: /deblocage-validation/{processKey}
+    controller: App\Controller\SecurityController::confirmUnlock
+
+security_logout:
+    path: /logout
+
